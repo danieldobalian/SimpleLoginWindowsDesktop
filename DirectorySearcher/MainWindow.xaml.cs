@@ -30,26 +30,20 @@ namespace SimpleLogin
     public partial class MainWindow : Window
     {
         #region Config Values
-
-        //
-        // The Client ID is used by the application to uniquely identify itself to Azure AD.
-        // The Tenant is the name of the Azure AD tenant in which this application is registered.
-        // The AAD Instance is the instance of Azure, for example public Azure or Azure China.
-        // The Redirect URI is the URI where Azure AD will return OAuth responses.
-        // The Authority is the sign-in URL of the tenant.
-        //
         private static string aadInstance = ConfigurationManager.AppSettings["ida:AADInstance"];
         private static string tenant = ConfigurationManager.AppSettings["ida:Tenant"];
         private static string clientId = ConfigurationManager.AppSettings["ida:ClientId"];
         Uri redirectUri = new Uri(ConfigurationManager.AppSettings["ida:RedirectUri"]);
-        private static string authority = String.Format(CultureInfo.InvariantCulture, aadInstance, tenant);
-
+        private static string authority = aadInstance;
         private static string graphResourceId = ConfigurationManager.AppSettings["ida:GraphResourceId"];
-        private static string graphApiVersion = ConfigurationManager.AppSettings["ida:GraphApiVersion"];
-        private static string graphApiEndpoint = ConfigurationManager.AppSettings["ida:GraphEndpoint"];
+
+        // GRAPH: Uncomment
+        //private static string graphApiVersion = ConfigurationManager.AppSettings["ida:GraphApiVersion"];
+        //private static string graphApiEndpoint = ConfigurationManager.AppSettings["ida:GraphEndpoint"];
 
         #endregion
-        private HttpClient httpClient = new HttpClient();
+        // GRAPH: Uncomment
+        // private HttpClient httpClient = new HttpClient();
         private AuthenticationContext authContext = null;
 
         public MainWindow() {  InitializeComponent(); }
@@ -70,11 +64,9 @@ namespace SimpleLogin
                     MessageBox.Show(ex.Message);
                 }
 
-                // If user interaction is required, proceed to main page without singing the user in.
                 return;
             }
 
-            // A valid token is in the cache
             SignOutButton.Visibility = Visibility.Visible;
             UserNameLabel.Content = result.UserInfo.DisplayableId;
         }
@@ -92,9 +84,11 @@ namespace SimpleLogin
 
         private async void SignIn(object sender = null, RoutedEventArgs args = null)
         {
-            authContext = new AuthenticationContext(authority, new FileCache());
+            // CACHE: uncomment
+            // authContext = new AuthenticationContext(authority, new FileCache());
+            authContext = new AuthenticationContext(authority);
 
-            // Uncomment if you want to use cached tokens
+            // CACHE: uncomment
             // CheckForCachedToken();
 
             AuthenticationResult result = null;
@@ -118,7 +112,7 @@ namespace SimpleLogin
                 return;
             }
 
-            // If we want to do Graph Stuff, this will do a search on the graph. 
+            // GRAPH: uncomment
 
             //try
             //{
