@@ -120,29 +120,29 @@ namespace SimpleLogin
 
             // If we want to do Graph Stuff, this will do a search on the graph. 
 
-            try
-            {
-                string graphRequest = String.Format(CultureInfo.InvariantCulture, "{0}{1}/v{2}/me/", graphApiEndpoint, tenant, graphApiVersion);
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, graphRequest);
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", result.AccessToken);
-                HttpResponseMessage response = httpClient.SendAsync(request).Result;
+            //try
+            //{
+            //    string graphRequest = String.Format(CultureInfo.InvariantCulture, "{0}{1}/v{2}/me/", graphApiEndpoint, tenant, graphApiVersion);
+            //    HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, graphRequest);
+            //    request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", result.AccessToken);
+            //    HttpResponseMessage response = httpClient.SendAsync(request).Result;
 
-                if (!response.IsSuccessStatusCode)
-                    throw new WebException(response.StatusCode.ToString() + ": " + response.ReasonPhrase);
+            //    if (!response.IsSuccessStatusCode)
+            //        throw new WebException(response.StatusCode.ToString() + ": " + response.ReasonPhrase);
 
-                string content = response.Content.ReadAsStringAsync().Result;
-                JObject jResult = JObject.Parse(content);
+            //    string content = response.Content.ReadAsStringAsync().Result;
+            //    JObject jResult = JObject.Parse(content);
 
-                if (jResult["odata.error"] != null)
-                    throw new Exception((string)jResult["odata.error"]["message"]["value"]);
+            //    if (jResult["odata.error"] != null)
+            //        throw new Exception((string)jResult["odata.error"]["message"]["value"]);
 
-                // Graph Results
-                UserNameLabel.Content += "\nGraph Result: " + jResult["value"].ToString();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message);
-            }
+            //    // Graph Results
+            //    UserNameLabel.Content += "\nGraph Result: " + jResult["value"].ToString();
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show("Error: " + ex.Message);
+            //}
         }
         #region Cookie Management
 
