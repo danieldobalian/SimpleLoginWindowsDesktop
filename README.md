@@ -1,5 +1,5 @@
 # NativeClient-DotNet
-Simple Windows Desktop App that performs obtains an access token.  Adapted from [@dstrockis] (https://github.com/dstrockis) [guide] (https://azure.microsoft.com/en-us/documentation/articles/active-directory-devquickstarts-dotnet/) 
+Simple Windows Desktop App that performs obtains a token.  Adapted from [@dstrockis] (https://github.com/dstrockis) [guide] (https://azure.microsoft.com/en-us/documentation/articles/active-directory-devquickstarts-dotnet/) 
 
 ## Authors
 
